@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Valentine 💘</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+      }
+
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        color: #e91e63;
+        margin-bottom: 30px;
+      }
+
+      button {
+        padding: 12px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        margin: 10px;
+      }
+
+      #yes {
+        background-color: #e91e63;
+        color: white;
+      }
+
+      #no {
+        background-color: #9e9e9e;
+        color: white;
+        position: absolute;
+      }
+
+      img {
+        margin-top: 20px;
+        width: 250px;
+        border-radius: 15px;
+        display: none;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      /* Hearts effect */
+      .hearts {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 20;
+      }
+
+      .heart {
+        position: absolute;
+        bottom: -30px;
+        font-size: 24px;
+        animation: floatUp 3s ease-in forwards;
+        opacity: 0.9;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-110vh) scale(1.8);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Do you wanna be my Valentine? 💘</h1>
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+
+      <img class="yesImg" src="./miss-you.gif" alt="Love" height="350" />
+      <img
+        id="noImg"
+        src="./penguin-dont-mess-with-me.gif"
+        alt="Try Again 😜"
+      />
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+    <script>
+      const noBtn = document.getElementById("no");
+      const yesBtn = document.getElementById("yes");
+      const yesImg = document.getElementsByClassName("yesImg");
+      const noImg = document.getElementById("noImg");
+      const heartsContainer = document.getElementById("hearts");
+
+      let hoverCount = 0;
+
+      noBtn.addEventListener("mouseover", () => {
+        hoverCount++;
+
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        if (hoverCount >= 5) {
+          noImg.style.display = "block";
+        }
+      });
+
+      yesBtn.addEventListener("click", () => {
+        Array.from(yesImg).forEach((element) => {
+          element.style.display = "block";
+        });
+        noBtn.style.display = "none";
+
+        launchHearts();
+      });
+      function launchHearts() {
+        for (let i = 0; i < 40; i++) {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.innerText = "💖";
+
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = 2 + Math.random() * 2 + "s";
+          heart.style.fontSize = 20 + Math.random() * 20 + "px";
+
+          heartsContainer.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 4000);
+        }
+      }
+    </script>
+  </body>
+</html>
